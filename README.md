@@ -22,7 +22,7 @@ This project is a RESTful API for an e-commerce platform, built with Node.js and
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/e-commerce-api.git
+    git clone https://github.com/abdelrhman-sys/e-commerce-api.git
     cd e-commerce-api
     ```
 
