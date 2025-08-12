@@ -53,16 +53,46 @@ This project is a RESTful API for an e-commerce platform, built with Node.js and
 
 - `GET /api/products` - List all products
 - `GET /api/products/:id` - Get a single product
-- `POST /api/products` - Create a new product
-- `PATCH /api/products/:id` - Update a product
+- `POST /api/products` - Create a new product  
+    **Body fields:**  
+    ```json
+    {
+        "name": "string",
+        "price": number,
+        "category_id": number,
+    }
+    ```
+
+- `PATCH /api/products/:id` - Update a product  
+    **Body fields:** (any subset of the following)  
+    ```json
+    {
+        "name": "string",
+        "price": number,
+        "category_id": number,
+    }
+    ```
 - `DELETE /api/products/:id` - Delete a product
 
 ### Categories
 
 - `GET /api/categories` - List all categories
 - `GET /api/categories/:id` - Get a single category
-- `POST /api/categories` - Create a new category
-- `PATCH /api/categories/:id` - Update a category
+- `POST /api/categories` - Create a new category  
+    **Body fields:**  
+    ```json
+    {
+        "name": "string"
+    }
+    ```
+
+- `PATCH /api/categories/:id` - Update a category  
+    **Body fields:**  
+    ```json
+    {
+        "name": "string"
+    }
+    ```
 - `DELETE /api/categories/:id` - Delete a category
 
 ### Carts
@@ -70,8 +100,22 @@ This project is a RESTful API for an e-commerce platform, built with Node.js and
 - `GET /api/carts` - List all carts
 - `GET /api/cart/:cartId/items` - Get all items in a certain cart
 - `POST /api/cart` - Create a new cart
-- `POST /api/cartItems/:cartId` - Add item to a certain cart
-- `PATCH /api/cartItems/:cartId/:product_id` - Update product inside a certain cart
+- `POST /api/cartItems/:cartId` - Add item to a certain cart  
+    **Body fields:**  
+    ```json
+    {
+            "product_id": number,
+            "quantity": number
+    }
+    ```
+
+- `PATCH /api/cartItems/:cartId/:product_id` - Update product inside a certain cart  
+    **Body fields:**  
+    ```json
+    {
+            "quantity": number
+    }
+    ```
 - `DELETE /api/carts` - Delete all carts
 - `DELETE /api/cart/:cartId` - Delete a certain cart
 - `DELETE /api/cartItems/:id` - Delete an item from a cart
