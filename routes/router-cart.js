@@ -41,12 +41,8 @@ router.get("/cart/:cartId/items",async(req, res)=> { // view all items in a spec
 })
 
 router.post("/cart", async (req, res)=> { // create carts table
-    const result = await createCart();
-    if (result.rowCount) {
-        return res.json({message: "Cart is created successfully"});
-    } else {
-        res.status(400).json({error: "Cart is already created"});
-    }  
+    await createCart();
+    res.json({message: "Cart is created successfully"});
 })
 
 router.post("/cartItems/:cartId", async(req, res)=> { // add item to a specific cart
