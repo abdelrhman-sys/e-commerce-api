@@ -41,8 +41,12 @@ router.get("/cart/:cartId/items",async(req, res)=> { // view all items in a spec
 })
 
 router.post("/cart", async (req, res)=> { // create carts table
-    await createCart();
-    res.json({message: "Cart is created successfully"});
+    const result = await createCart();
+    if (result.rowCount) {
+        return res.json({message: "Cart is created successfully"});
+    } else {
+        res.status(400).json({error: "Cart is already created"});
+    }  
 })
 
 router.post("/cartItems/:cartId", async(req, res)=> { // add item to a specific cart
@@ -81,10 +85,10 @@ router.delete("/carts", async (req, res)=> { // delete all carts table
 
 router.delete("/cart/:cartId", async(req, res)=> { // delete a specific cart
     try {
-        const result = await db.query(`DELETE FROM carts WHERE cart_id= $1`, [req.params.cartId]);
+        const result = await db.query(`DELETE FROM carts WHERE cart_id= $1 RETURNING *`, [req.params.cartId]);
         const cart = result.rows[0];
         if (cart) {
-            return res.json(cart);
+            return res.send("Cart is deleted successfully\n" + JSON.stringify(cart));
         } else {
             res.status(404).json({error: "Cart not found"});
         }
@@ -95,10 +99,10 @@ router.delete("/cart/:cartId", async(req, res)=> { // delete a specific cart
 
 router.delete("/cartItems/:id", async(req, res)=> { // delete an item in carts table
     try {
-        const result = await db.query(`DELETE FROM carts WHERE id= $1`, [req.params.id]);
+        const result = await db.query(`DELETE FROM carts WHERE id= $1 RETURNING *`, [req.params.id]);
         const item = result.rows[0];
         if (item) {
-            return res.json(item);
+            return res.send("Item is deleted successfully\n" + JSON.stringify(item));
         } else {
             res.status(404).json({error: "Item not found"});
         }

@@ -24,10 +24,11 @@ export default function createTables() {
 }
 
 export async function createCart() {
-        db.query(`CREATE TABLE IF NOT EXISTS carts (
+        const result = db.query(`CREATE TABLE IF NOT EXISTS carts (
                 id SERIAL PRIMARY KEY,
                 cart_id INT NOT NULL,
                 product_id INT REFERENCES products(id) NOT NULL,
                 quantity INT NOT NULL,
                 UNIQUE (cart_id, product_id))`);
+        return result;
 }
